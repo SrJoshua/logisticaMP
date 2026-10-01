@@ -3,17 +3,14 @@
 // ==========================================
 
 // Repositorio donde están las planillas de personas.
-//
-// IMPORTANTE:
-// Esta dirección apunta al repositorio que mostraste:
-// SrJoshua/buscador-padron
-//
 const REPO_USUARIOS =
     "https://api.github.com/repos/SrJoshua/buscador-padron/contents/datos";
 
-
 // Archivo de destinos de nuestro proyecto.
 const DESTINOS_URL = "./data/destinos.json";
+
+// Servidor backend de Logística MP
+const API_URL = "http://localhost:3000/api";
 
 
 // ==========================================
@@ -28,8 +25,11 @@ let personaEncontrada = null;
 // ELEMENTOS HTML
 // ==========================================
 
-const cedulaInput = document.getElementById("cedula");
-const btnBuscar = document.getElementById("btnBuscar");
+const cedulaInput =
+    document.getElementById("cedula");
+
+const btnBuscar =
+    document.getElementById("btnBuscar");
 
 const resultadoPersona =
     document.getElementById("resultadoPersona");
@@ -71,12 +71,14 @@ async function cargarDestinos() {
             await fetch(DESTINOS_URL);
 
         if (!respuesta.ok) {
+
             throw new Error(
                 "No se pudo cargar destinos.json"
             );
         }
 
-        destinos = await respuesta.json();
+        destinos =
+            await respuesta.json();
 
         console.log(
             "Destinos cargados:",
@@ -109,6 +111,7 @@ async function obtenerArchivosPersonas() {
             await fetch(REPO_USUARIOS);
 
         if (!respuesta.ok) {
+
             throw new Error(
                 "No se pudo acceder al repositorio"
             );
@@ -146,7 +149,6 @@ function normalizarCedula(valor) {
         .replace(/\./g, "")
         .replace(/\s/g, "")
         .trim();
-
 }
 
 
@@ -156,12 +158,16 @@ function normalizarCedula(valor) {
 
 function buscarEnObjeto(objeto, cedula) {
 
-    if (!objeto || typeof objeto !== "object") {
+    if (
+        !objeto ||
+        typeof objeto !== "object"
+    ) {
         return null;
     }
 
 
     // Posibles nombres de campo para C.I.
+
     const camposCedula = [
         "cedula",
         "ci",
@@ -209,7 +215,8 @@ function buscarEnObjeto(objeto, cedula) {
 
     for (const clave in objeto) {
 
-        const valor = objeto[clave];
+        const valor =
+            objeto[clave];
 
         if (
             valor &&
@@ -223,6 +230,7 @@ function buscarEnObjeto(objeto, cedula) {
                 );
 
             if (resultado) {
+
                 return resultado;
             }
         }
@@ -245,6 +253,7 @@ function extraerPersona(objeto) {
         "firstName",
         "firstname"
     ];
+
 
     const apellidoCampos = [
         "apellido",
@@ -311,13 +320,16 @@ function extraerPersona(objeto) {
             ) {
 
                 return {
+
                     cedula:
                         normalizarCedula(
                             obtenerCedula(objeto)
                         ),
 
                     nombre:
-                        String(objeto[campo])
+                        String(
+                            objeto[campo]
+                        )
                 };
             }
         }
@@ -334,7 +346,6 @@ function extraerPersona(objeto) {
         nombre:
             `${nombre} ${apellido}`
                 .trim()
-
     };
 }
 
@@ -391,6 +402,7 @@ async function buscarEnArchivo(
             );
 
         if (!respuesta.ok) {
+
             return null;
         }
 
@@ -402,7 +414,9 @@ async function buscarEnArchivo(
 
         if (Array.isArray(datos)) {
 
-            for (const registro of datos) {
+            for (
+                const registro of datos
+            ) {
 
                 const resultado =
                     buscarEnObjeto(
@@ -411,6 +425,7 @@ async function buscarEnArchivo(
                     );
 
                 if (resultado) {
+
                     return resultado;
                 }
             }
@@ -429,6 +444,7 @@ async function buscarEnArchivo(
                 );
 
             if (resultado) {
+
                 return resultado;
             }
         }
@@ -472,7 +488,9 @@ async function buscarPersona() {
 
 
     btnBuscar.disabled = true;
-    btnBuscar.textContent = "Buscando...";
+
+    btnBuscar.textContent =
+        "Buscando...";
 
 
     resultadoPersona.classList.add(
@@ -503,7 +521,9 @@ async function buscarPersona() {
         );
 
 
-        for (const archivo of archivos) {
+        for (
+            const archivo of archivos
+        ) {
 
             const persona =
                 await buscarEnArchivo(
@@ -559,7 +579,8 @@ async function buscarPersona() {
 
         btnBuscar.disabled = false;
 
-        btnBuscar.textContent = "Buscar";
+        btnBuscar.textContent =
+            "Buscar";
     }
 }
 
@@ -576,20 +597,27 @@ function actualizarDestinos() {
         );
 
 
-    destinoSelect.innerHTML = "";
+    destinoSelect.innerHTML =
+        "";
 
 
     if (!seccional) {
 
-        destinoSelect.disabled = true;
+        destinoSelect.disabled =
+            true;
+
 
         const opcion =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
+
 
         opcion.value = "";
 
         opcion.textContent =
             "Primero seleccione una seccional";
+
 
         destinoSelect.appendChild(
             opcion
@@ -608,12 +636,16 @@ function actualizarDestinos() {
 
 
     const primeraOpcion =
-        document.createElement("option");
+        document.createElement(
+            "option"
+        );
+
 
     primeraOpcion.value = "";
 
     primeraOpcion.textContent =
         "Seleccione el lugar de entrega";
+
 
     destinoSelect.appendChild(
         primeraOpcion
@@ -628,11 +660,14 @@ function actualizarDestinos() {
                     "option"
                 );
 
+
             opcion.value =
                 destino.id;
 
+
             opcion.textContent =
                 destino.nombre;
+
 
             destinoSelect.appendChild(
                 opcion
@@ -647,12 +682,67 @@ function actualizarDestinos() {
 
 
 // ==========================================
+// REGISTRAR ENTREGA EN MYSQL
+// ==========================================
+
+async function registrarEntrega(datos) {
+
+    try {
+
+        const respuesta =
+            await fetch(
+                `${API_URL}/entregas`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(datos)
+                }
+            );
+
+
+        const resultado =
+            await respuesta.json();
+
+
+        if (!respuesta.ok) {
+
+            throw new Error(
+                resultado.error ||
+                resultado.detalle ||
+                "No se pudo registrar la entrega."
+            );
+        }
+
+
+        return resultado;
+
+    } catch (error) {
+
+        console.error(
+            "Error registrando entrega:",
+            error
+        );
+
+        throw error;
+    }
+}
+
+
+// ==========================================
 // REGISTRAR ENTREGA
 // ==========================================
 
-function entregar() {
+async function entregar() {
 
-    // Validar persona
+    // ======================================
+    // VALIDAR PERSONA
+    // ======================================
 
     if (!personaEncontrada) {
 
@@ -666,7 +756,9 @@ function entregar() {
     }
 
 
-    // Validar chapa
+    // ======================================
+    // VALIDAR CHAPA
+    // ======================================
 
     const chapa =
         chapaInput.value.trim();
@@ -684,7 +776,31 @@ function entregar() {
     }
 
 
-    // Validar destino
+    // ======================================
+    // VALIDAR SECCIONAL
+    // ======================================
+
+    const seccional =
+        Number(
+            seccionalSelect.value
+        );
+
+
+    if (!seccional) {
+
+        alert(
+            "Seleccione una seccional."
+        );
+
+        seccionalSelect.focus();
+
+        return;
+    }
+
+
+    // ======================================
+    // VALIDAR DESTINO
+    // ======================================
 
     const destinoId =
         Number(
@@ -704,7 +820,9 @@ function entregar() {
     }
 
 
-    // Validar mercadería
+    // ======================================
+    // VALIDAR MERCADERÍA
+    // ======================================
 
     const mercaderia =
         mercaderiaInput.value.trim();
@@ -722,7 +840,9 @@ function entregar() {
     }
 
 
-    // Encontrar destino
+    // ======================================
+    // ENCONTRAR DESTINO
+    // ======================================
 
     const destino =
         destinos.find(
@@ -742,73 +862,893 @@ function entregar() {
     }
 
 
-    // Fecha y hora
+    // ======================================
+    // ABRIR VENTANA DE MAPS
+    // ======================================
+    // Se abre inmediatamente para evitar
+    // que el navegador bloquee la ventana
+    // después del fetch.
 
-    const ahora =
-        new Date();
+    let ventanaMapa = null;
+
+    if (destino.maps) {
+
+        ventanaMapa =
+            window.open(
+                "about:blank",
+                "_blank"
+            );
+    }
+
+
+    // ======================================
+    // DESACTIVAR BOTÓN
+    // ======================================
+
+    btnEntregar.disabled = true;
+
+    const textoOriginal =
+        btnEntregar.textContent;
+
+    btnEntregar.textContent =
+        "Registrando...";
+
+
+    try {
+
+        // ==================================
+        // ENVIAR A MYSQL
+        // ==================================
+
+        const datosEntrega = {
+
+            cedula:
+                normalizarCedula(
+                    cedulaInput.value
+                ),
+
+            responsable:
+                personaEncontrada.nombre,
+
+            chapa:
+                chapa.toUpperCase(),
+
+            seccional:
+                seccional,
+
+            destino:
+                destino.nombre,
+
+            mercaderia:
+                mercaderia
+        };
+
+
+        const resultado =
+            await registrarEntrega(
+                datosEntrega
+            );
+
+
+        console.log(
+            "Entrega registrada:",
+            resultado
+        );
+
+
+        // ==================================
+        // FECHA Y HORA
+        // ==================================
+
+        const ahora =
+            new Date();
+
+
+        const fecha =
+            ahora.toLocaleString(
+                "es-PY",
+                {
+                    dateStyle:
+                        "short",
+
+                    timeStyle:
+                        "medium"
+                }
+            );
+
+
+        // ==================================
+        // MOSTRAR RESUMEN
+        // ==================================
+
+        document.getElementById(
+            "resumenPersona"
+        ).textContent =
+            personaEncontrada.nombre;
+
+
+        document.getElementById(
+            "resumenCedula"
+        ).textContent =
+            normalizarCedula(
+                cedulaInput.value
+            );
+
+
+        document.getElementById(
+            "resumenChapa"
+        ).textContent =
+            chapa.toUpperCase();
+
+
+        document.getElementById(
+            "resumenDestino"
+        ).textContent =
+            `Seccional ${destino.seccional} — ${destino.nombre}`;
+
+
+        document.getElementById(
+            "resumenMercaderia"
+        ).textContent =
+            mercaderia;
+
+
+        document.getElementById(
+            "resumenFecha"
+        ).textContent =
+            fecha;
+
+
+        resumen.classList.remove(
+            "hidden"
+        );
+
+
+        // ==================================
+        // ABRIR GOOGLE MAPS
+        // ==================================
+
+        if (destino.maps) {
+
+            if (ventanaMapa) {
+
+                ventanaMapa.location.href =
+                    destino.maps;
+
+            } else {
+
+                window.open(
+                    destino.maps,
+                    "_blank"
+                );
+            }
+        }
+
+
+        // ==================================
+        // ACTUALIZAR PENDIENTES
+        // ==================================
+
+        await cargarEntregasPendientes();
+
+
+        alert(
+            "✅ Entrega registrada correctamente.\n\n" +
+            "Estado: PENDIENTE"
+        );
+
+
+        // ==================================
+        // LIMPIAR CAMPOS DE ENTREGA
+        // ==================================
+
+        chapaInput.value = "";
+
+        mercaderiaInput.value = "";
+
+        seccionalSelect.value = "";
+
+        actualizarDestinos();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        // Si hubo error, cerrar ventana
+        // vacía de Google Maps.
+
+        if (
+            ventanaMapa &&
+            !ventanaMapa.closed
+        ) {
+
+            ventanaMapa.close();
+        }
+
+
+        alert(
+            "❌ No se pudo registrar la entrega.\n\n" +
+            error.message +
+            "\n\n" +
+            "Verifique que el servidor de Logística MP esté funcionando."
+        );
+
+    } finally {
+
+        btnEntregar.disabled =
+            false;
+
+        btnEntregar.textContent =
+            textoOriginal;
+    }
+}
+
+
+// ==========================================
+// CREAR SECCIÓN DE ENTREGAS PENDIENTES
+// ==========================================
+
+function crearSeccionPendientes() {
+
+    let contenedor =
+        document.getElementById(
+            "entregasPendientes"
+        );
+
+
+    // Si ya existe, no volver a crearla.
+
+    if (contenedor) {
+
+        return contenedor;
+    }
+
+
+    contenedor =
+        document.createElement(
+            "section"
+        );
+
+
+    contenedor.id =
+        "entregasPendientes";
+
+
+    contenedor.style.marginTop =
+        "30px";
+
+
+    contenedor.style.padding =
+        "20px";
+
+
+    contenedor.style.borderRadius =
+        "15px";
+
+
+    contenedor.style.background =
+        "#ffffff";
+
+
+    contenedor.style.boxShadow =
+        "0 4px 15px rgba(0,0,0,0.08)";
+
+
+    // ======================================
+    // TÍTULO
+    // ======================================
+
+    const titulo =
+        document.createElement(
+            "h2"
+        );
+
+
+    titulo.textContent =
+        "📦 Entregas pendientes";
+
+
+    titulo.style.marginTop =
+        "0";
+
+
+    titulo.style.marginBottom =
+        "15px";
+
+
+    contenedor.appendChild(
+        titulo
+    );
+
+
+    // ======================================
+    // LISTA
+    // ======================================
+
+    const lista =
+        document.createElement(
+            "div"
+        );
+
+
+    lista.id =
+        "listaEntregasPendientes";
+
+
+    contenedor.appendChild(
+        lista
+    );
+
+
+    // ======================================
+    // AGREGAR AL DOCUMENTO
+    // ======================================
+
+    const lugar =
+        resumen?.parentElement ||
+        document.querySelector(
+            "main"
+        ) ||
+        document.body;
+
+
+    lugar.appendChild(
+        contenedor
+    );
+
+
+    return contenedor;
+}
+
+
+// ==========================================
+// FORMATEAR FECHA
+// ==========================================
+
+function formatearFecha(fecha) {
+
+    if (!fecha) {
+
+        return "Sin fecha";
+    }
+
+
+    const fechaObjeto =
+        new Date(fecha);
+
+
+    if (
+        isNaN(
+            fechaObjeto.getTime()
+        )
+    ) {
+
+        return String(fecha);
+    }
+
+
+    return fechaObjeto.toLocaleString(
+        "es-PY",
+        {
+            dateStyle: "short",
+            timeStyle: "medium"
+        }
+    );
+}
+
+
+// ==========================================
+// CREAR TARJETA DE ENTREGA
+// ==========================================
+
+function crearTarjetaEntrega(
+    entrega
+) {
+
+    const tarjeta =
+        document.createElement(
+            "div"
+        );
+
+
+    tarjeta.style.border =
+        "1px solid #ddd";
+
+
+    tarjeta.style.borderRadius =
+        "12px";
+
+
+    tarjeta.style.padding =
+        "15px";
+
+
+    tarjeta.style.marginBottom =
+        "12px";
+
+
+    tarjeta.style.background =
+        "#f8f9fa";
+
+
+    // ======================================
+    // RESPONSABLE
+    // ======================================
+
+    const responsable =
+        document.createElement(
+            "div"
+        );
+
+
+    responsable.style.fontWeight =
+        "bold";
+
+
+    responsable.style.fontSize =
+        "17px";
+
+
+    responsable.textContent =
+        entrega.responsable ||
+        "Sin responsable";
+
+
+    tarjeta.appendChild(
+        responsable
+    );
+
+
+    // ======================================
+    // DATOS
+    // ======================================
+
+    const datos =
+        document.createElement(
+            "div"
+        );
+
+
+    datos.style.marginTop =
+        "8px";
+
+
+    datos.style.lineHeight =
+        "1.6";
+
+
+    datos.innerHTML = "";
+
+
+    const ci =
+        document.createElement(
+            "div"
+        );
+
+
+    ci.textContent =
+        `🪪 C.I.: ${entrega.cedula || ""}`;
+
+
+    const chapa =
+        document.createElement(
+            "div"
+        );
+
+
+    chapa.textContent =
+        `🚗 Chapa: ${entrega.chapa || ""}`;
+
+
+    const destino =
+        document.createElement(
+            "div"
+        );
+
+
+    destino.textContent =
+        `📍 Seccional ${entrega.seccional} — ${entrega.destino || ""}`;
+
+
+    const mercaderia =
+        document.createElement(
+            "div"
+        );
+
+
+    mercaderia.textContent =
+        `📦 Mercadería: ${entrega.mercaderia || ""}`;
 
 
     const fecha =
-        ahora.toLocaleString(
-            "es-PY",
-            {
-                dateStyle: "short",
-                timeStyle: "medium"
+        document.createElement(
+            "div"
+        );
+
+
+    fecha.textContent =
+        `🕐 Registrada: ${formatearFecha(entrega.fecha_registro)}`;
+
+
+    datos.appendChild(
+        ci
+    );
+
+    datos.appendChild(
+        chapa
+    );
+
+    datos.appendChild(
+        destino
+    );
+
+    datos.appendChild(
+        mercaderia
+    );
+
+    datos.appendChild(
+        fecha
+    );
+
+
+    tarjeta.appendChild(
+        datos
+    );
+
+
+    // ======================================
+    // BOTÓN ENTREGADA
+    // ======================================
+
+    const boton =
+        document.createElement(
+            "button"
+        );
+
+
+    boton.type =
+        "button";
+
+
+    boton.textContent =
+        "✅ MARCAR COMO ENTREGADA";
+
+
+    boton.style.marginTop =
+        "12px";
+
+
+    boton.style.width =
+        "100%";
+
+
+    boton.style.padding =
+        "12px";
+
+
+    boton.style.border =
+        "none";
+
+
+    boton.style.borderRadius =
+        "8px";
+
+
+    boton.style.cursor =
+        "pointer";
+
+
+    boton.style.fontWeight =
+        "bold";
+
+
+    boton.style.background =
+        "#198754";
+
+
+    boton.style.color =
+        "#ffffff";
+
+
+    boton.addEventListener(
+        "click",
+        () =>
+            marcarComoEntregada(
+                entrega.id,
+                boton
+            )
+    );
+
+
+    tarjeta.appendChild(
+        boton
+    );
+
+
+    return tarjeta;
+}
+
+
+// ==========================================
+// CARGAR ENTREGAS PENDIENTES
+// ==========================================
+
+async function cargarEntregasPendientes() {
+
+    try {
+
+        const contenedor =
+            crearSeccionPendientes();
+
+
+        const lista =
+            document.getElementById(
+                "listaEntregasPendientes"
+            );
+
+
+        if (!lista) {
+
+            return;
+        }
+
+
+        lista.innerHTML =
+            "";
+
+
+        const cargando =
+            document.createElement(
+                "div"
+            );
+
+
+        cargando.textContent =
+            "Cargando entregas...";
+
+
+        lista.appendChild(
+            cargando
+        );
+
+
+        const respuesta =
+            await fetch(
+                `${API_URL}/entregas?estado=PENDIENTE`
+            );
+
+
+        if (!respuesta.ok) {
+
+            throw new Error(
+                "No se pudieron obtener las entregas pendientes."
+            );
+        }
+
+
+        const entregas =
+            await respuesta.json();
+
+
+        lista.innerHTML =
+            "";
+
+
+        // ==================================
+        // NO HAY PENDIENTES
+        // ==================================
+
+        if (
+            !Array.isArray(entregas) ||
+            entregas.length === 0
+        ) {
+
+            const vacio =
+                document.createElement(
+                    "div"
+                );
+
+
+            vacio.textContent =
+                "🎉 No hay entregas pendientes.";
+
+
+            vacio.style.padding =
+                "15px";
+
+
+            vacio.style.textAlign =
+                "center";
+
+
+            vacio.style.color =
+                "#666";
+
+
+            lista.appendChild(
+                vacio
+            );
+
+
+            return;
+        }
+
+
+        // ==================================
+        // MOSTRAR ENTREGAS
+        // ==================================
+
+        entregas.forEach(
+            entrega => {
+
+                const tarjeta =
+                    crearTarjetaEntrega(
+                        entrega
+                    );
+
+
+                lista.appendChild(
+                    tarjeta
+                );
             }
         );
 
 
-    // Mostrar resumen
+    } catch (error) {
 
-    document.getElementById(
-        "resumenPersona"
-    ).textContent =
-        personaEncontrada.nombre;
-
-
-    document.getElementById(
-        "resumenCedula"
-    ).textContent =
-        cedulaInput.value;
+        console.error(
+            "Error cargando entregas pendientes:",
+            error
+        );
 
 
-    document.getElementById(
-        "resumenChapa"
-    ).textContent =
-        chapa.toUpperCase();
+        const lista =
+            document.getElementById(
+                "listaEntregasPendientes"
+            );
 
 
-    document.getElementById(
-        "resumenDestino"
-    ).textContent =
-        `Seccional ${destino.seccional} — ${destino.nombre}`;
+        if (lista) {
+
+            lista.innerHTML =
+                "";
 
 
-    document.getElementById(
-        "resumenMercaderia"
-    ).textContent =
-        mercaderia;
+            const errorDiv =
+                document.createElement(
+                    "div"
+                );
 
 
-    document.getElementById(
-        "resumenFecha"
-    ).textContent =
-        fecha;
+            errorDiv.textContent =
+                "⚠️ No se pudo conectar con el servidor de Logística MP.";
 
 
-    resumen.classList.remove(
-        "hidden"
-    );
+            errorDiv.style.padding =
+                "15px";
+
+
+            errorDiv.style.color =
+                "#b02a37";
+
+
+            lista.appendChild(
+                errorDiv
+            );
+        }
+    }
+}
+
+
+// ==========================================
+// MARCAR COMO ENTREGADA
+// ==========================================
+
+async function marcarComoEntregada(
+    id,
+    boton
+) {
+
+    if (!id) {
+
+        alert(
+            "No se encontró el ID de la entrega."
+        );
+
+        return;
+    }
+
+
+    const confirmar =
+        confirm(
+            "¿Confirmar que esta entrega fue realizada?"
+        );
+
+
+    if (!confirmar) {
+
+        return;
+    }
 
 
     // ======================================
-    // ABRIR GOOGLE MAPS
+    // DESACTIVAR BOTÓN
     // ======================================
 
-    window.open(
-        destino.maps,
-        "_blank"
-    );
+    boton.disabled =
+        true;
+
+
+    boton.textContent =
+        "Procesando...";
+
+
+    try {
+
+        const respuesta =
+            await fetch(
+                `${API_URL}/entregas/${id}/entregar`,
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        const resultado =
+            await respuesta.json();
+
+
+        if (!respuesta.ok) {
+
+            throw new Error(
+                resultado.error ||
+                resultado.detalle ||
+                "No se pudo marcar como entregada."
+            );
+        }
+
+
+        console.log(
+            "Entrega completada:",
+            resultado
+        );
+
+
+        alert(
+            "✅ Entrega marcada como ENTREGADA."
+        );
+
+
+        // ==================================
+        // ACTUALIZAR LISTA
+        // ==================================
+
+        await cargarEntregasPendientes();
+
+
+    } catch (error) {
+
+        console.error(
+            "Error marcando entrega:",
+            error
+        );
+
+
+        alert(
+            "❌ No se pudo marcar la entrega.\n\n" +
+            error.message
+        );
+
+
+        boton.disabled =
+            false;
+
+
+        boton.textContent =
+            "✅ MARCAR COMO ENTREGADA";
+    }
 }
 
 
@@ -826,7 +1766,9 @@ cedulaInput.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Enter") {
+        if (
+            event.key === "Enter"
+        ) {
 
             buscarPersona();
         }
@@ -850,4 +1792,19 @@ btnEntregar.addEventListener(
 // INICIO
 // ==========================================
 
-cargarDestinos();
+async function iniciarAplicacion() {
+
+    // Cargar destinos
+
+    await cargarDestinos();
+
+
+    // Crear y cargar entregas pendientes
+
+    crearSeccionPendientes();
+
+    await cargarEntregasPendientes();
+}
+
+
+iniciarAplicacion();
