@@ -1,1 +1,8 @@
-
+[
+  {
+    "nombre": "Colegio Nacional",
+    "direccion": "Luque",
+    "latitud": -25.26,
+    "longitud": -57.48
+  }
+]
