@@ -1,8 +1,155 @@
 [
   {
-    "nombre": "Colegio Nacional",
-    "direccion": "Luque",
-    "latitud": -25.26,
-    "longitud": -57.48
+    "id": 1,
+    "seccional": 1,
+    "nombre": "Colegio Manuel Domínguez",
+    "maps": "https://maps.app.goo.gl/tVBuGBq2Wb7ZSGgV7"
+  },
+  {
+    "id": 2,
+    "seccional": 1,
+    "nombre": "Escuela Loma Merlo",
+    "maps": "https://maps.app.goo.gl/qTK8nGsymb3ov9UB7"
+  },
+
+  {
+    "id": 3,
+    "seccional": 2,
+    "nombre": "Colegio Juan Herrero Bueno",
+    "maps": "https://maps.app.goo.gl/at7S4ibgppEg9hmY6"
+  },
+  {
+    "id": 4,
+    "seccional": 2,
+    "nombre": "Colegio Nacional Mariscal Estigarribia",
+    "maps": "https://maps.app.goo.gl/hGG6ffEioFsB84CS8"
+  },
+  {
+    "id": 5,
+    "seccional": 2,
+    "nombre": "Colegio N.º 110 Bernardino Caballero",
+    "maps": "https://maps.app.goo.gl/19dr2rGBB96AUd6XA"
+  },
+  {
+    "id": 6,
+    "seccional": 2,
+    "nombre": "Escuela Perpetuo Socorro",
+    "maps": "https://maps.app.goo.gl/tKpTse3YcaQPzpEt6"
+  },
+  {
+    "id": 7,
+    "seccional": 2,
+    "nombre": "Escuela Maestro Silva",
+    "maps": "https://maps.app.goo.gl/RTwyXae51QqVeXXJ8"
+  },
+  {
+    "id": 8,
+    "seccional": 2,
+    "nombre": "Escuela Héroes Luqueños",
+    "maps": "https://maps.app.goo.gl/ReKZzMeiZQfscBYZ7"
+  },
+  {
+    "id": 9,
+    "seccional": 2,
+    "nombre": "Escuela Teodoro S. Mongelós",
+    "maps": "https://maps.app.goo.gl/UwNoE39M77cEgDWs7"
+  },
+  {
+    "id": 10,
+    "seccional": 2,
+    "nombre": "Escuela Gral. A. Garay",
+    "maps": "https://maps.app.goo.gl/QDHcd4txyyRcoC8G8"
+  },
+  {
+    "id": 11,
+    "seccional": 2,
+    "nombre": "Escuela Fabián Cáceres",
+    "maps": "https://maps.app.goo.gl/21YtEWvvf6Egi6AD9"
+  },
+  {
+    "id": 12,
+    "seccional": 2,
+    "nombre": "Escuela San Martín de Porres",
+    "maps": "https://maps.app.goo.gl/zX7NuhW4WXaDqPwg9"
+  },
+  {
+    "id": 13,
+    "seccional": 2,
+    "nombre": "Colegio Irrazábal Muti",
+    "maps": "https://maps.app.goo.gl/DeQZ9WBVMwhAZ5yU6"
+  },
+  {
+    "id": 14,
+    "seccional": 2,
+    "nombre": "Escuela Santiago Leguizamón",
+    "maps": "https://maps.app.goo.gl/wXhMRaXXAj7o3TDG6"
+  },
+  {
+    "id": 15,
+    "seccional": 2,
+    "nombre": "Escuela Leandro Diego Sánchez",
+    "maps": "https://maps.app.goo.gl/e1R4Drn8PjqVqGP96"
+  },
+
+  {
+    "id": 16,
+    "seccional": 3,
+    "nombre": "Escuela Gral. Elizardo Aquino",
+    "maps": "https://maps.app.goo.gl/pE6dLTpusWwUSZHb6"
+  },
+  {
+    "id": 17,
+    "seccional": 3,
+    "nombre": "Escuela Cañada San Rafael",
+    "maps": "https://maps.app.goo.gl/RvAKYd8cpMXC45tm9"
+  },
+  {
+    "id": 18,
+    "seccional": 3,
+    "nombre": "Escuela María A. de Centurión",
+    "maps": "https://maps.app.goo.gl/XCzAAeEA7PiMXvLw5"
+  },
+
+  {
+    "id": 19,
+    "seccional": 4,
+    "nombre": "Colegio Nacional Gral. Elizardo Aquino",
+    "maps": "https://maps.app.goo.gl/VXHZ4LGiR1E44wuL8"
+  },
+  {
+    "id": 20,
+    "seccional": 4,
+    "nombre": "Colegio Nacional Julio Correa",
+    "maps": "https://maps.app.goo.gl/rruEgpadwZu14ezs8"
+  },
+  {
+    "id": 21,
+    "seccional": 4,
+    "nombre": "Colegio Nacional Fulgencio Cubilla (CEIL)",
+    "maps": "https://maps.app.goo.gl/5UBBXaVmSTobwpYj9"
+  },
+  {
+    "id": 22,
+    "seccional": 4,
+    "nombre": "Colegio Epifanio Méndez Fleitas",
+    "maps": "https://maps.app.goo.gl/14XtrgeNru4gHcwF7"
+  },
+  {
+    "id": 23,
+    "seccional": 4,
+    "nombre": "Colegio Héroes de la Patria",
+    "maps": "https://maps.app.goo.gl/oSxiNTW7NxTkh99J8"
+  },
+  {
+    "id": 24,
+    "seccional": 4,
+    "nombre": "Escuela Adrián Jara",
+    "maps": "https://maps.app.goo.gl/JoLcUfxECugMeKzLA"
+  },
+  {
+    "id": 25,
+    "seccional": 4,
+    "nombre": "Escuela Pedro Varela",
+    "maps": "https://maps.app.goo.gl/PHW8TbGYEusvD6yt5"
   }
 ]
