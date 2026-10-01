@@ -1,1 +1,275 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f4f8;
+    color: #17202a;
+    min-height: 100vh;
+}
+
+.app {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* HEADER */
+
+.header {
+    background: #111827;
+    color: white;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.header h1 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+/* CARDS */
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+.card h2 {
+    font-size: 19px;
+    margin-bottom: 18px;
+}
+
+/* LABELS */
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 2px solid #dbe2ea;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    outline: none;
+    background: white;
+    color: #17202a;
+    margin-bottom: 16px;
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* BUSCADOR */
+
+.search-container {
+    display: flex;
+    gap: 8px;
+}
+
+.search-container input {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.btn-search {
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.btn-search:hover {
+    background: #1d4ed8;
+}
+
+/* PERSONA */
+
+.persona {
+    margin-top: 15px;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 14px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.persona-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.persona span {
+    display: block;
+    color: #047857;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.persona strong {
+    display: block;
+    font-size: 17px;
+    color: #064e3b;
+}
+
+/* ERROR */
+
+.error {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 14px;
+}
+
+/* BOTÓN ENTREGAR */
+
+.btn-entregar {
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    background: #16a34a;
+    color: white;
+    padding: 18px;
+    font-size: 19px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-entregar:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+}
+
+.btn-entregar:active {
+    transform: translateY(1px);
+}
+
+/* RESUMEN */
+
+.resumen {
+    border-left: 5px solid #16a34a;
+}
+
+.resumen-dato {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.resumen-dato:last-child {
+    border-bottom: none;
+}
+
+.resumen-dato span {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.resumen-dato strong {
+    display: block;
+    font-size: 15px;
+}
+
+/* UTILIDADES */
+
+.hidden {
+    display: none !important;
+}
+
+footer {
+    text-align: center;
+    color: #6b7280;
+    font-size: 12px;
+    padding: 20px;
+}
+
+/* CELULAR */
+
+@media (max-width: 500px) {
+
+    .app {
+        padding: 12px;
+    }
+
+    .header {
+        padding: 18px;
+    }
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+    .card {
+        padding: 17px;
+        border-radius: 15px;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .btn-search {
+        height: 48px;
+    }
+}
