@@ -1,1 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Sistema de logística y entrega de mercaderías"
+    >
+
+    <title>Logística MP</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- ENCABEZADO -->
+
+        <header class="header">
+
+            <div class="logo">
+                🚚
+            </div>
+
+            <div>
+                <h1>Logística MP</h1>
+                <p>Sistema de entrega de mercaderías</p>
+            </div>
+
+        </header>
+
+
+        <!-- DATOS DEL RESPONSABLE -->
+
+        <section class="card">
+
+            <h2>👤 Responsable</h2>
+
+            <label for="cedula">
+                Número de C.I.
+            </label>
+
+            <div class="search-container">
+
+                <input
+                    type="text"
+                    id="cedula"
+                    placeholder="Ingrese número de C.I."
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="btnBuscar"
+                    class="btn-search"
+                >
+                    Buscar
+                </button>
+
+            </div>
+
+
+            <div
+                id="resultadoPersona"
+                class="persona hidden"
+            >
+
+                <div class="persona-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <span>Nombre y apellido</span>
+
+                    <strong id="nombrePersona">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div
+                id="errorPersona"
+                class="error hidden"
+            >
+                No se encontró una persona con esa C.I.
+            </div>
+
+        </section>
+
+
+        <!-- DATOS DEL VEHÍCULO -->
+
+        <section class="card">
+
+            <h2>🚗 Vehículo</h2>
+
+            <label for="chapa">
+                Chapa del vehículo
+            </label>
+
+            <input
+                type="text"
+                id="chapa"
+                placeholder="Ej: ABC-123"
+                autocomplete="off"
+            >
+
+        </section>
+
+
+        <!-- DESTINO -->
+
+        <section class="card">
+
+            <h2>📍 Destino</h2>
+
+            <label for="seccional">
+                Seccional
+            </label>
+
+            <select id="seccional">
+
+                <option value="">
+                    Seleccione una seccional
+                </option>
+
+                <option value="1">
+                    Seccional 1
+                </option>
+
+                <option value="2">
+                    Seccional 2
+                </option>
+
+                <option value="3">
+                    Seccional 3
+                </option>
+
+                <option value="4">
+                    Seccional 4
+                </option>
+
+            </select>
+
+
+            <label for="destino">
+                Lugar de entrega
+            </label>
+
+            <select id="destino" disabled>
+
+                <option value="">
+                    Primero seleccione una seccional
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- MERCADERÍA -->
+
+        <section class="card">
+
+            <h2>📦 Mercadería</h2>
+
+            <label for="mercaderia">
+                Descripción de la mercadería
+            </label>
+
+            <textarea
+                id="mercaderia"
+                rows="5"
+                placeholder="Describa la mercadería que será entregada..."
+            ></textarea>
+
+        </section>
+
+
+        <!-- BOTÓN -->
+
+        <section class="card">
+
+            <button
+                type="button"
+                id="btnEntregar"
+                class="btn-entregar"
+            >
+                🚚 ENTREGAR
+            </button>
+
+        </section>
+
+
+        <!-- RESUMEN -->
+
+        <section
+            id="resumen"
+            class="card resumen hidden"
+        >
+
+            <h2>✅ Entrega registrada</h2>
+
+            <div class="resumen-dato">
+                <span>Responsable</span>
+                <strong id="resumenPersona">—</strong>
+            </div>
+
+            <div class="resumen-dato">
+                <span>C.I.</span>
+                <strong id="resumenCedula">—</strong>
+            </div>
+
+            <div class="resumen-dato">
+                <span>Vehículo</span>
+                <strong id="resumenChapa">—</strong>
+            </div>
+
+            <div class="resumen-dato">
+                <span>Destino</span>
+                <strong id="resumenDestino">—</strong>
+            </div>
+
+            <div class="resumen-dato">
+                <span>Mercadería</span>
+                <strong id="resumenMercaderia">—</strong>
+            </div>
+
+            <div class="resumen-dato">
+                <span>Fecha y hora</span>
+                <strong id="resumenFecha">—</strong>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        Sistema de logística · Logística MP
+    </footer>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
