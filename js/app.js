@@ -10,7 +10,7 @@ const REPO_USUARIOS =
 const DESTINOS_URL = "./data/destinos.json";
 
 // Servidor backend de Logística MP
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://popular-below-duncan-solution.trycloudflare.com/api";
 
 
 // ==========================================
