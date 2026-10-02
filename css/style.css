@@ -726,3 +726,185 @@ textarea:focus {
         font-size: 13px;
     }
 }
+/* ==========================================
+   BANNER LOGÍSTICA MP
+   ========================================== */
+
+.banner-logistica {
+    position: relative;
+    width: 100%;
+    height: 180px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            105deg,
+            #063b91 0%,
+            #063b91 18%,
+            #ffffff 18%,
+            #ffffff 68%,
+            #df0000 68%,
+            #df0000 100%
+        );
+
+    border-bottom: 7px solid #ffc400;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.15);
+
+    margin-bottom: 25px;
+}
+
+/* Curva azul */
+.banner-logistica::before {
+    content: "";
+
+    position: absolute;
+
+    left: -100px;
+    top: -140px;
+
+    width: 360px;
+    height: 360px;
+
+    border-radius: 50%;
+
+    border-right: 18px solid #ffc400;
+    border-bottom: 10px solid #ffffff;
+
+    transform: rotate(-15deg);
+
+    z-index: 1;
+}
+
+/* Línea inferior */
+.banner-logistica::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #063b91 0%,
+            #063b91 45%,
+            #ffc400 45%,
+            #ffc400 72%,
+            #df0000 72%,
+            #df0000 100%
+        );
+
+    z-index: 5;
+}
+
+/* Contenido */
+.banner-contenido {
+    position: relative;
+
+    z-index: 4;
+
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 90px;
+
+    gap: 22px;
+}
+
+/* Ícono */
+.banner-logo {
+    width: 82px;
+    height: 82px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    font-size: 46px;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.15);
+
+    border: 4px solid #063b91;
+}
+
+/* Título */
+.banner-contenido h1 {
+    margin: 0;
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+    color: #111111;
+
+    letter-spacing: -1.5px;
+}
+
+/* Subtítulo */
+.banner-contenido p {
+    margin: 5px 0 0;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .banner-logistica {
+        height: 135px;
+
+        border-radius: 18px;
+
+        margin-bottom: 18px;
+    }
+
+    .banner-contenido {
+        padding-left: 45px;
+
+        gap: 12px;
+    }
+
+    .banner-logo {
+        width: 58px;
+        height: 58px;
+
+        border-radius: 15px;
+
+        font-size: 31px;
+
+        border-width: 3px;
+    }
+
+    .banner-contenido h1 {
+        font-size: 27px;
+
+        letter-spacing: -0.8px;
+    }
+
+    .banner-contenido p {
+        font-size: 13px;
+    }
+}
