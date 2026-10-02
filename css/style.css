@@ -273,3 +273,456 @@ footer {
         height: 48px;
     }
 }
+
+/* ==========================================
+   LOGÍSTICA MP — NUEVA IDENTIDAD VISUAL
+   ========================================== */
+
+:root {
+    --azul-mp: #063b91;
+    --azul-oscuro: #06285f;
+    --rojo-mp: #df0000;
+    --amarillo-mp: #ffc400;
+    --blanco: #ffffff;
+    --gris-fondo: #f3f5f8;
+}
+
+/* Fondo general */
+body {
+    background:
+        linear-gradient(
+            135deg,
+            #f8f9fb 0%,
+            #ffffff 50%,
+            #f1f4f8 100%
+        );
+}
+
+/* Encabezado */
+header {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            110deg,
+            var(--azul-mp) 0%,
+            var(--azul-mp) 18%,
+            #ffffff 18%,
+            #ffffff 68%,
+            var(--rojo-mp) 68%,
+            var(--rojo-mp) 100%
+        );
+
+    border-radius: 22px;
+    min-height: 155px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 25px 35px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.14);
+
+    border-bottom: 7px solid var(--amarillo-mp);
+}
+
+/* Decoración azul/amarilla */
+header::before {
+    content: "";
+    position: absolute;
+
+    left: -80px;
+    top: -90px;
+
+    width: 260px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul-mp) 0%,
+            var(--azul-mp) 55%,
+            var(--amarillo-mp) 55%,
+            var(--amarillo-mp) 72%,
+            transparent 72%
+        );
+
+    opacity: 0.95;
+}
+
+/* Línea decorativa */
+header::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--azul-mp) 0%,
+            var(--azul-mp) 45%,
+            var(--amarillo-mp) 45%,
+            var(--amarillo-mp) 72%,
+            var(--rojo-mp) 72%,
+            var(--rojo-mp) 100%
+        );
+}
+
+/* Contenido del encabezado */
+header > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Título */
+header h1 {
+    color: #111827;
+
+    font-size: 2.2rem;
+    font-weight: 900;
+
+    margin: 0;
+
+    letter-spacing: -1px;
+}
+
+/* Subtítulo */
+header p {
+    color: #374151;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    margin-top: 6px;
+}
+
+/* Tarjetas */
+section,
+.form-section,
+.card {
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.07);
+
+    border: 1px solid #e5e7eb;
+}
+
+/* Títulos de secciones */
+section h2,
+.form-section h2 {
+    color: var(--azul-mp);
+}
+
+/* Etiquetas */
+label {
+    color: #202938;
+    font-weight: 700;
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+    border: 2px solid #dce1e8 !important;
+    border-radius: 13px !important;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        transform 0.2s;
+
+    background: #ffffff;
+}
+
+/* Input seleccionado */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--azul-mp) !important;
+
+    box-shadow:
+        0 0 0 4px rgba(6, 59, 145, 0.12) !important;
+
+    outline: none;
+}
+
+/* Botón buscar */
+#btnBuscar {
+    background: var(--azul-mp) !important;
+    color: white !important;
+
+    border: none !important;
+    border-radius: 12px !important;
+
+    font-weight: 800;
+
+    transition: 0.2s;
+}
+
+#btnBuscar:hover {
+    background: var(--azul-oscuro) !important;
+    transform: translateY(-1px);
+}
+
+/* Botón entregar */
+#btnEntregar {
+    background:
+        linear-gradient(
+            90deg,
+            var(--azul-mp),
+            #0758c9
+        ) !important;
+
+    color: white !important;
+
+    border: none !important;
+    border-radius: 14px !important;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 6px 15px rgba(6, 59, 145, 0.25);
+
+    transition: 0.2s;
+}
+
+#btnEntregar:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 20px rgba(6, 59, 145, 0.32);
+}
+
+/* Entregas pendientes */
+#entregasPendientes {
+    border-top: 6px solid var(--rojo-mp) !important;
+}
+
+#entregasPendientes h2 {
+    color: var(--azul-mp);
+    font-weight: 900;
+}
+
+/* Tarjetas individuales */
+#listaEntregasPendientes > div {
+    border-left: 5px solid var(--amarillo-mp) !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+
+    header {
+        min-height: 125px;
+
+        padding: 20px;
+
+        border-radius: 18px;
+    }
+
+    header h1 {
+        font-size: 1.7rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    section,
+    .form-section,
+    .card {
+        border-radius: 17px !important;
+    }
+}
+/* ==========================================
+   BANNER LOGÍSTICA MP
+   ========================================== */
+
+.banner-logistica {
+    position: relative;
+    width: 100%;
+    height: 180px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            105deg,
+            #063b91 0%,
+            #063b91 18%,
+            #ffffff 18%,
+            #ffffff 68%,
+            #df0000 68%,
+            #df0000 100%
+        );
+
+    border-bottom: 7px solid #ffc400;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.15);
+
+    margin-bottom: 25px;
+}
+
+/* Curva azul */
+.banner-logistica::before {
+    content: "";
+
+    position: absolute;
+
+    left: -100px;
+    top: -140px;
+
+    width: 360px;
+    height: 360px;
+
+    border-radius: 50%;
+
+    border-right: 18px solid #ffc400;
+    border-bottom: 10px solid #ffffff;
+
+    transform: rotate(-15deg);
+
+    z-index: 1;
+}
+
+/* Línea inferior */
+.banner-logistica::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #063b91 0%,
+            #063b91 45%,
+            #ffc400 45%,
+            #ffc400 72%,
+            #df0000 72%,
+            #df0000 100%
+        );
+
+    z-index: 5;
+}
+
+/* Contenido */
+.banner-contenido {
+    position: relative;
+
+    z-index: 4;
+
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 90px;
+
+    gap: 22px;
+}
+
+/* Ícono */
+.banner-logo {
+    width: 82px;
+    height: 82px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    font-size: 46px;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.15);
+
+    border: 4px solid #063b91;
+}
+
+/* Título */
+.banner-contenido h1 {
+    margin: 0;
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+    color: #111111;
+
+    letter-spacing: -1.5px;
+}
+
+/* Subtítulo */
+.banner-contenido p {
+    margin: 5px 0 0;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .banner-logistica {
+        height: 135px;
+
+        border-radius: 18px;
+
+        margin-bottom: 18px;
+    }
+
+    .banner-contenido {
+        padding-left: 45px;
+
+        gap: 12px;
+    }
+
+    .banner-logo {
+        width: 58px;
+        height: 58px;
+
+        border-radius: 15px;
+
+        font-size: 31px;
+
+        border-width: 3px;
+    }
+
+    .banner-contenido h1 {
+        font-size: 27px;
+
+        letter-spacing: -0.8px;
+    }
+
+    .banner-contenido p {
+        font-size: 13px;
+    }
+}
