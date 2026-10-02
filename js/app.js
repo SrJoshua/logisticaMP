@@ -10,7 +10,8 @@ const REPO_USUARIOS =
 const DESTINOS_URL = "./data/destinos.json";
 
 // Servidor backend de Logística MP
-const API_URL = "https://popular-below-duncan-solution.trycloudflare.com/api";
+const API_URL =
+    "https://aurora-renewal-rod-airlines.trycloudflare.com/api";
 
 
 // ==========================================
