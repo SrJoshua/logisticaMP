@@ -29,6 +29,9 @@ let personaEncontrada = null;
 const cedulaInput =
     document.getElementById("cedula");
 
+const telefonoInput =
+    document.getElementById("telefono");
+
 const btnBuscar =
     document.getElementById("btnBuscar");
 
@@ -776,6 +779,24 @@ async function entregar() {
         return;
     }
 
+    // ======================================
+    // VALIDAR TELÉFONO
+    // ======================================
+    
+    const telefono =
+        telefonoInput.value.trim();
+    
+    if (!telefono) {
+    
+        alert(
+            "Ingrese el número de teléfono."
+        );
+    
+        telefonoInput.focus();
+    
+        return;
+    }
+
 
     // ======================================
     // VALIDAR SECCIONAL
@@ -902,28 +923,30 @@ async function entregar() {
         // ==================================
 
         const datosEntrega = {
-
+        
             cedula:
                 normalizarCedula(
                     cedulaInput.value
                 ),
-
+        
             responsable:
                 personaEncontrada.nombre,
-
+        
+            telefono:
+                telefono,
+        
             chapa:
                 chapa.toUpperCase(),
-
+        
             seccional:
                 seccional,
-
+        
             destino:
                 destino.nombre,
-
+        
             mercaderia:
                 mercaderia
         };
-
 
         const resultado =
             await registrarEntrega(
@@ -1042,11 +1065,13 @@ async function entregar() {
         // ==================================
         // LIMPIAR CAMPOS DE ENTREGA
         // ==================================
-
+        
+        telefonoInput.value = "";
+        
         chapaInput.value = "";
-
+        
         mercaderiaInput.value = "";
-
+        
         seccionalSelect.value = "";
 
         actualizarDestinos();
@@ -1332,6 +1357,14 @@ function crearTarjetaEntrega(
     ci.textContent =
         `🪪 C.I.: ${entrega.cedula || ""}`;
 
+    const telefono =
+        document.createElement(
+            "div"
+        );
+    
+    telefono.textContent =
+        `📱 Teléfono: ${entrega.telefono || ""}`;
+
 
     const chapa =
         document.createElement(
@@ -1376,7 +1409,11 @@ function crearTarjetaEntrega(
     datos.appendChild(
         ci
     );
-
+    
+    datos.appendChild(
+        telefono
+    );
+    
     datos.appendChild(
         chapa
     );
