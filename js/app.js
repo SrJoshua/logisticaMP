@@ -6,12 +6,16 @@
 const REPO_USUARIOS =
     "https://api.github.com/repos/SrJoshua/buscador-padron/contents/datos";
 
-// Archivo de destinos de nuestro proyecto.
-const DESTINOS_URL = "./data/destinos.json";
+// Archivo de destinos.
+const DESTINOS_URL =
+    "./data/destinos.json";
 
-// Servidor backend de Logística MP
+// ==========================================
+// SERVIDOR BACKEND DE LOGÍSTICA MP
+// ==========================================
+
 const API_URL =
-    "https://email-competent-antivirus-ing.trycloudflare.com/api";
+    "https://rivers-formely-acre-clicking.trycloudflare.com/api";
 
 
 // ==========================================
@@ -29,9 +33,6 @@ let personaEncontrada = null;
 const cedulaInput =
     document.getElementById("cedula");
 
-const telefonoInput =
-    document.getElementById("telefono");
-
 const btnBuscar =
     document.getElementById("btnBuscar");
 
@@ -43,6 +44,9 @@ const errorPersona =
 
 const nombrePersona =
     document.getElementById("nombrePersona");
+
+const telefonoInput =
+    document.getElementById("telefono");
 
 const chapaInput =
     document.getElementById("chapa");
@@ -104,7 +108,7 @@ async function cargarDestinos() {
 
 
 // ==========================================
-// CARGAR LISTA DE ARCHIVOS JSON
+// OBTENER ARCHIVOS DE PERSONAS
 // ==========================================
 
 async function obtenerArchivosPersonas() {
@@ -117,7 +121,7 @@ async function obtenerArchivosPersonas() {
         if (!respuesta.ok) {
 
             throw new Error(
-                "No se pudo acceder al repositorio"
+                "No se pudo acceder al repositorio."
             );
         }
 
@@ -160,19 +164,22 @@ function normalizarCedula(valor) {
 // BUSCAR C.I. EN OBJETOS
 // ==========================================
 
-function buscarEnObjeto(objeto, cedula) {
+function buscarEnObjeto(
+    objeto,
+    cedula
+) {
 
     if (
         !objeto ||
         typeof objeto !== "object"
     ) {
+
         return null;
     }
 
 
-    // Posibles nombres de campo para C.I.
-
     const camposCedula = [
+
         "cedula",
         "ci",
         "c_i",
@@ -183,13 +190,16 @@ function buscarEnObjeto(objeto, cedula) {
         "nro_ci",
         "nro_documento",
         "nroDocumento"
+
     ];
 
 
     let valorCedula = null;
 
 
-    for (const campo of camposCedula) {
+    for (
+        const campo of camposCedula
+    ) {
 
         if (
             Object.prototype.hasOwnProperty.call(
@@ -208,16 +218,22 @@ function buscarEnObjeto(objeto, cedula) {
 
     if (
         valorCedula !== null &&
-        normalizarCedula(valorCedula) === cedula
+        normalizarCedula(
+            valorCedula
+        ) === cedula
     ) {
 
-        return extraerPersona(objeto);
+        return extraerPersona(
+            objeto
+        );
     }
 
 
-    // Buscar recursivamente dentro del objeto.
+    // Buscar recursivamente.
 
-    for (const clave in objeto) {
+    for (
+        const clave in objeto
+    ) {
 
         const valor =
             objeto[clave];
@@ -246,24 +262,30 @@ function buscarEnObjeto(objeto, cedula) {
 
 
 // ==========================================
-// EXTRAER NOMBRE
+// EXTRAER PERSONA
 // ==========================================
 
-function extraerPersona(objeto) {
+function extraerPersona(
+    objeto
+) {
 
     const nombreCampos = [
+
         "nombre",
         "nombres",
         "firstName",
         "firstname"
+
     ];
 
 
     const apellidoCampos = [
+
         "apellido",
         "apellidos",
         "lastName",
         "lastname"
+
     ];
 
 
@@ -271,42 +293,50 @@ function extraerPersona(objeto) {
     let apellido = "";
 
 
-    for (const campo of nombreCampos) {
+    for (
+        const campo of nombreCampos
+    ) {
 
         if (
             objeto[campo] !== undefined
         ) {
 
             nombre =
-                String(objeto[campo]);
+                String(
+                    objeto[campo]
+                );
 
             break;
         }
     }
 
 
-    for (const campo of apellidoCampos) {
+    for (
+        const campo of apellidoCampos
+    ) {
 
         if (
             objeto[campo] !== undefined
         ) {
 
             apellido =
-                String(objeto[campo]);
+                String(
+                    objeto[campo]
+                );
 
             break;
         }
     }
 
 
-    // Si existe un campo "nombre_completo"
-
     const camposCompletos = [
+
         "nombre_completo",
         "nombreCompleto",
         "fullName",
         "fullname",
         "nombre_apellido"
+
     ];
 
 
@@ -327,7 +357,9 @@ function extraerPersona(objeto) {
 
                     cedula:
                         normalizarCedula(
-                            obtenerCedula(objeto)
+                            obtenerCedula(
+                                objeto
+                            )
                         ),
 
                     nombre:
@@ -344,7 +376,9 @@ function extraerPersona(objeto) {
 
         cedula:
             normalizarCedula(
-                obtenerCedula(objeto)
+                obtenerCedula(
+                    objeto
+                )
             ),
 
         nombre:
@@ -355,12 +389,15 @@ function extraerPersona(objeto) {
 
 
 // ==========================================
-// OBTENER C.I. DEL OBJETO
+// OBTENER C.I.
 // ==========================================
 
-function obtenerCedula(objeto) {
+function obtenerCedula(
+    objeto
+) {
 
     const campos = [
+
         "cedula",
         "ci",
         "c_i",
@@ -371,10 +408,13 @@ function obtenerCedula(objeto) {
         "nro_ci",
         "nro_documento",
         "nroDocumento"
+
     ];
 
 
-    for (const campo of campos) {
+    for (
+        const campo of campos
+    ) {
 
         if (
             objeto[campo] !== undefined
@@ -414,9 +454,11 @@ async function buscarEnArchivo(
             await respuesta.json();
 
 
-        // Si es un array
+        // Si es un array.
 
-        if (Array.isArray(datos)) {
+        if (
+            Array.isArray(datos)
+        ) {
 
             for (
                 const registro of datos
@@ -437,7 +479,7 @@ async function buscarEnArchivo(
         }
 
 
-        // Si es un objeto
+        // Si es un objeto.
 
         else {
 
@@ -512,7 +554,9 @@ async function buscarPersona() {
             await obtenerArchivosPersonas();
 
 
-        if (archivos.length === 0) {
+        if (
+            archivos.length === 0
+        ) {
 
             throw new Error(
                 "No se encontraron archivos JSON."
@@ -563,9 +607,10 @@ async function buscarPersona() {
         }
 
 
-        // No encontrada
+        // No encontrada.
 
-        personaEncontrada = null;
+        personaEncontrada =
+            null;
 
         errorPersona.classList.remove(
             "hidden"
@@ -573,7 +618,9 @@ async function buscarPersona() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         alert(
             "Ocurrió un error al buscar la C.I."
@@ -581,7 +628,8 @@ async function buscarPersona() {
 
     } finally {
 
-        btnBuscar.disabled = false;
+        btnBuscar.disabled =
+            false;
 
         btnBuscar.textContent =
             "Buscar";
@@ -590,7 +638,7 @@ async function buscarPersona() {
 
 
 // ==========================================
-// CARGAR DESTINOS SEGÚN SECCIONAL
+// ACTUALIZAR DESTINOS
 // ==========================================
 
 function actualizarDestinos() {
@@ -617,7 +665,8 @@ function actualizarDestinos() {
             );
 
 
-        opcion.value = "";
+        opcion.value =
+            "";
 
         opcion.textContent =
             "Primero seleccione una seccional";
@@ -634,8 +683,9 @@ function actualizarDestinos() {
     const destinosFiltrados =
         destinos.filter(
             destino =>
-                Number(destino.seccional) ===
-                seccional
+                Number(
+                    destino.seccional
+                ) === seccional
         );
 
 
@@ -645,7 +695,8 @@ function actualizarDestinos() {
         );
 
 
-    primeraOpcion.value = "";
+    primeraOpcion.value =
+        "";
 
     primeraOpcion.textContent =
         "Seleccione el lugar de entrega";
@@ -689,7 +740,9 @@ function actualizarDestinos() {
 // REGISTRAR ENTREGA EN MYSQL
 // ==========================================
 
-async function registrarEntrega(datos) {
+async function registrarEntrega(
+    datos
+) {
 
     try {
 
@@ -697,15 +750,19 @@ async function registrarEntrega(datos) {
             await fetch(
                 `${API_URL}/entregas`,
                 {
+
                     method: "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
                     },
 
                     body:
-                        JSON.stringify(datos)
+                        JSON.stringify(
+                            datos
+                        )
                 }
             );
 
@@ -717,9 +774,11 @@ async function registrarEntrega(datos) {
         if (!respuesta.ok) {
 
             throw new Error(
+
                 resultado.error ||
                 resultado.detalle ||
                 "No se pudo registrar la entrega."
+
             );
         }
 
@@ -761,6 +820,31 @@ async function entregar() {
 
 
     // ======================================
+    // VALIDAR TELÉFONO
+    // ======================================
+
+    const telefono =
+        telefonoInput
+            ? telefonoInput.value.trim()
+            : "";
+
+
+    if (!telefono) {
+
+        alert(
+            "Ingrese el número de teléfono."
+        );
+
+        if (telefonoInput) {
+
+            telefonoInput.focus();
+        }
+
+        return;
+    }
+
+
+    // ======================================
     // VALIDAR CHAPA
     // ======================================
 
@@ -776,24 +860,6 @@ async function entregar() {
 
         chapaInput.focus();
 
-        return;
-    }
-
-    // ======================================
-    // VALIDAR TELÉFONO
-    // ======================================
-    
-    const telefono =
-        telefonoInput.value.trim();
-    
-    if (!telefono) {
-    
-        alert(
-            "Ingrese el número de teléfono."
-        );
-    
-        telefonoInput.focus();
-    
         return;
     }
 
@@ -885,13 +951,12 @@ async function entregar() {
 
 
     // ======================================
-    // ABRIR VENTANA DE MAPS
+    // ABRIR GOOGLE MAPS
     // ======================================
-    // Se abre inmediatamente para evitar
-    // que el navegador bloquee la ventana
-    // después del fetch.
 
-    let ventanaMapa = null;
+    let ventanaMapa =
+        null;
+
 
     if (destino.maps) {
 
@@ -907,10 +972,13 @@ async function entregar() {
     // DESACTIVAR BOTÓN
     // ======================================
 
-    btnEntregar.disabled = true;
+    btnEntregar.disabled =
+        true;
+
 
     const textoOriginal =
         btnEntregar.textContent;
+
 
     btnEntregar.textContent =
         "Registrando...";
@@ -919,34 +987,39 @@ async function entregar() {
     try {
 
         // ==================================
-        // ENVIAR A MYSQL
+        // DATOS DE LA ENTREGA
         // ==================================
 
         const datosEntrega = {
-        
+
             cedula:
                 normalizarCedula(
                     cedulaInput.value
                 ),
-        
+
             responsable:
                 personaEncontrada.nombre,
-        
+
             telefono:
                 telefono,
-        
+
             chapa:
                 chapa.toUpperCase(),
-        
+
             seccional:
                 seccional,
-        
+
             destino:
                 destino.nombre,
-        
+
             mercaderia:
                 mercaderia
         };
+
+
+        // ==================================
+        // ENVIAR AL BACKEND
+        // ==================================
 
         const resultado =
             await registrarEntrega(
@@ -972,6 +1045,7 @@ async function entregar() {
             ahora.toLocaleString(
                 "es-PY",
                 {
+
                     dateStyle:
                         "short",
 
@@ -997,6 +1071,21 @@ async function entregar() {
             normalizarCedula(
                 cedulaInput.value
             );
+
+
+        // Mostrar teléfono si existe
+        // un elemento para el resumen.
+
+        const resumenTelefono =
+            document.getElementById(
+                "resumenTelefono"
+            );
+
+        if (resumenTelefono) {
+
+            resumenTelefono.textContent =
+                telefono;
+        }
 
 
         document.getElementById(
@@ -1034,7 +1123,10 @@ async function entregar() {
 
         if (destino.maps) {
 
-            if (ventanaMapa) {
+            if (
+                ventanaMapa &&
+                !ventanaMapa.closed
+            ) {
 
                 ventanaMapa.location.href =
                     destino.maps;
@@ -1063,27 +1155,37 @@ async function entregar() {
 
 
         // ==================================
-        // LIMPIAR CAMPOS DE ENTREGA
+        // LIMPIAR CAMPOS
         // ==================================
-        
-        telefonoInput.value = "";
-        
-        chapaInput.value = "";
-        
-        mercaderiaInput.value = "";
-        
-        seccionalSelect.value = "";
+
+        if (telefonoInput) {
+
+            telefonoInput.value =
+                "";
+        }
+
+
+        chapaInput.value =
+            "";
+
+        mercaderiaInput.value =
+            "";
+
+        seccionalSelect.value =
+            "";
 
         actualizarDestinos();
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
 
-        // Si hubo error, cerrar ventana
-        // vacía de Google Maps.
+        // Cerrar ventana de Maps
+        // si quedó vacía.
 
         if (
             ventanaMapa &&
@@ -1095,10 +1197,12 @@ async function entregar() {
 
 
         alert(
+
             "❌ No se pudo registrar la entrega.\n\n" +
             error.message +
             "\n\n" +
             "Verifique que el servidor de Logística MP esté funcionando."
+
         );
 
     } finally {
@@ -1123,8 +1227,6 @@ function crearSeccionPendientes() {
             "entregasPendientes"
         );
 
-
-    // Si ya existe, no volver a crearla.
 
     if (contenedor) {
 
@@ -1233,7 +1335,9 @@ function crearSeccionPendientes() {
 // FORMATEAR FECHA
 // ==========================================
 
-function formatearFecha(fecha) {
+function formatearFecha(
+    fecha
+) {
 
     if (!fecha) {
 
@@ -1251,15 +1355,21 @@ function formatearFecha(fecha) {
         )
     ) {
 
-        return String(fecha);
+        return String(
+            fecha
+        );
     }
 
 
     return fechaObjeto.toLocaleString(
         "es-PY",
         {
-            dateStyle: "short",
-            timeStyle: "medium"
+
+            dateStyle:
+                "short",
+
+            timeStyle:
+                "medium"
         }
     );
 }
@@ -1345,8 +1455,9 @@ function crearTarjetaEntrega(
         "1.6";
 
 
-    datos.innerHTML = "";
-
+    // --------------------------------------
+    // C.I.
+    // --------------------------------------
 
     const ci =
         document.createElement(
@@ -1357,14 +1468,24 @@ function crearTarjetaEntrega(
     ci.textContent =
         `🪪 C.I.: ${entrega.cedula || ""}`;
 
+
+    // --------------------------------------
+    // TELÉFONO
+    // --------------------------------------
+
     const telefono =
         document.createElement(
             "div"
         );
-    
-    telefono.textContent =
-        `📱 Teléfono: ${entrega.telefono || ""}`;
 
+
+    telefono.textContent =
+        `📱 Teléfono: ${entrega.telefono || "No registrado"}`;
+
+
+    // --------------------------------------
+    // CHAPA
+    // --------------------------------------
 
     const chapa =
         document.createElement(
@@ -1376,6 +1497,10 @@ function crearTarjetaEntrega(
         `🚗 Chapa: ${entrega.chapa || ""}`;
 
 
+    // --------------------------------------
+    // DESTINO
+    // --------------------------------------
+
     const destino =
         document.createElement(
             "div"
@@ -1385,6 +1510,10 @@ function crearTarjetaEntrega(
     destino.textContent =
         `📍 Seccional ${entrega.seccional} — ${entrega.destino || ""}`;
 
+
+    // --------------------------------------
+    // MERCADERÍA
+    // --------------------------------------
 
     const mercaderia =
         document.createElement(
@@ -1396,6 +1525,10 @@ function crearTarjetaEntrega(
         `📦 Mercadería: ${entrega.mercaderia || ""}`;
 
 
+    // --------------------------------------
+    // FECHA
+    // --------------------------------------
+
     const fecha =
         document.createElement(
             "div"
@@ -1403,17 +1536,19 @@ function crearTarjetaEntrega(
 
 
     fecha.textContent =
-        `🕐 Registrada: ${formatearFecha(entrega.fecha_registro)}`;
+        `🕐 Registrada: ${formatearFecha(
+            entrega.fecha_registro
+        )}`;
 
 
     datos.appendChild(
         ci
     );
-    
+
     datos.appendChild(
         telefono
     );
-    
+
     datos.appendChild(
         chapa
     );
@@ -1517,8 +1652,7 @@ async function cargarEntregasPendientes() {
 
     try {
 
-        const contenedor =
-            crearSeccionPendientes();
+        crearSeccionPendientes();
 
 
         const lista =
@@ -1551,6 +1685,10 @@ async function cargarEntregasPendientes() {
             cargando
         );
 
+
+        // ==================================
+        // CONSULTAR BACKEND
+        // ==================================
 
         const respuesta =
             await fetch(
@@ -1711,10 +1849,6 @@ async function marcarComoEntregada(
     }
 
 
-    // ======================================
-    // DESACTIVAR BOTÓN
-    // ======================================
-
     boton.disabled =
         true;
 
@@ -1729,7 +1863,9 @@ async function marcarComoEntregada(
             await fetch(
                 `${API_URL}/entregas/${id}/entregar`,
                 {
-                    method: "PUT"
+
+                    method:
+                        "PUT"
                 }
             );
 
@@ -1741,9 +1877,11 @@ async function marcarComoEntregada(
         if (!respuesta.ok) {
 
             throw new Error(
+
                 resultado.error ||
                 resultado.detalle ||
                 "No se pudo marcar como entregada."
+
             );
         }
 
@@ -1759,10 +1897,6 @@ async function marcarComoEntregada(
         );
 
 
-        // ==================================
-        // ACTUALIZAR LISTA
-        // ==================================
-
         await cargarEntregasPendientes();
 
 
@@ -1775,8 +1909,10 @@ async function marcarComoEntregada(
 
 
         alert(
+
             "❌ No se pudo marcar la entrega.\n\n" +
             error.message
+
         );
 
 
@@ -1805,7 +1941,8 @@ cedulaInput.addEventListener(
     function(event) {
 
         if (
-            event.key === "Enter"
+            event.key ===
+            "Enter"
         ) {
 
             buscarPersona();
@@ -1832,17 +1969,24 @@ btnEntregar.addEventListener(
 
 async function iniciarAplicacion() {
 
-    // Cargar destinos
+    // Cargar destinos.
 
     await cargarDestinos();
 
 
-    // Crear y cargar entregas pendientes
+    // Crear sección.
 
     crearSeccionPendientes();
+
+
+    // Cargar pendientes.
 
     await cargarEntregasPendientes();
 }
 
+
+// ==========================================
+// INICIAR
+// ==========================================
 
 iniciarAplicacion();
