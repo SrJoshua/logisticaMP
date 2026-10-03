@@ -11,7 +11,8 @@ const DESTINOS_URL = "./data/destinos.json";
 
 // Servidor backend de Logística MP
 const API_URL =
-    "https://email-competent-antivirus-ing.trycloudflare.com ";
+    "const API_URL =
+    "https://email-competent-antivirus-ing.trycloudflare.com/api";";
 
 
 // ==========================================
