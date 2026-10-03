@@ -15,7 +15,7 @@ const DESTINOS_URL =
 // ==========================================
 
 const API_URL =
-    "https://maintained-pace-knew-adelaide.trycloudflare.com/api";
+    "https://flights-bald-cio-alpha.trycloudflare.com/api";
 
 
 // ==========================================
