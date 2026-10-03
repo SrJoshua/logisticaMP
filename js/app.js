@@ -15,7 +15,7 @@ const DESTINOS_URL =
 // ==========================================
 
 const API_URL =
-    "https://rivers-formely-acre-clicking.trycloudflare.com/api";
+    "https://maintained-pace-knew-adelaide.trycloudflare.com/api";
 
 
 // ==========================================
